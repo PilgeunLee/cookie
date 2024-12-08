@@ -15,7 +15,6 @@ public class UserService {
     private final UserRepository userRepository;
 
     public void login(
-
             LoginRequest loginRequest,
             HttpServletResponse httpServletResponse
     ){
@@ -28,7 +27,7 @@ public class UserService {
             var userDto=optionalUser.get();
 
             if(userDto.getPassword().equals(pw)){
-                var cookie = new Cookie("authorization",userDto.getId());
+                var cookie = new Cookie("authorization-cookie",userDto.getId());
                 cookie.setDomain("localhost");
                 cookie.setPath("/");
                 cookie.setHttpOnly(true);

@@ -17,17 +17,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/user")
 public class UserApiController {
 
-    private final  UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @GetMapping("/me")
     public UserDto me(
             HttpServletRequest httpServletRequest,
 
-            @CookieValue(name= "authorization-cookie",required = false)
+            @CookieValue(name = "authorization-cookie", required = false)
             String authorizationCookie
     ){
-        log.info("authorizationCookie:{}", authorizationCookie);
-        var optionalUserDto =userRepository.findById(authorizationCookie);
+        log.info("authorizationCookie : {}", authorizationCookie);
+        var optionalUserDto = userRepository.findById(authorizationCookie);
         return optionalUserDto.get();
+
+        /*
+        var cookies = httpServletRequest.getCookies();
+
+        if(cookies != null){
+            for(Cookie cookie: cookies){
+                log.info("key : {}, value : {}", cookie.getName(), cookie.getValue());
+            }
+        }
+        */
     }
 }
